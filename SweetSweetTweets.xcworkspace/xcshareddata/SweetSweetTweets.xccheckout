@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C678E872-7D4C-4E05-83CC-3FD549E0F1ED</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SweetSweetTweets</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0FE864475C052D1E0C93D88F6D74C63A8547D4C8</key>
+		<string>https://github.com/shannonshu227/Twiiter.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SweetSweetTweets.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0FE864475C052D1E0C93D88F6D74C63A8547D4C8</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/shannonshu227/Twiiter.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0FE864475C052D1E0C93D88F6D74C63A8547D4C8</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0FE864475C052D1E0C93D88F6D74C63A8547D4C8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SweetSweetTweets</string>
+		</dict>
+	</array>
+</dict>
+</plist>

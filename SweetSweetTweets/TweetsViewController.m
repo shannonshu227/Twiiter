@@ -12,6 +12,7 @@
 #import "Tweet.h"
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "ComposeViewController.h"
 
 @interface TweetsViewController () <UITableViewDataSource,UITableViewDelegate>
 //- (IBAction)onLogout:(id)sender;
@@ -21,6 +22,11 @@
 @end
 
 @implementation TweetsViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    [self.tableView reloadData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,6 +58,7 @@
     }];
     
       [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"TweetCellID"];
+
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -63,6 +70,7 @@
     Tweet *tweet = self.tweets[indexPath.row];
 
     [cell.userProfileImageView setImageWithURL: [NSURL URLWithString:tweet.user.profileImageUrl]];
+
     cell.nameLabel.text = tweet.user.name;
     NSMutableString *screenname =[[NSMutableString alloc] initWithString:@"@"];
     [screenname appendString:tweet.user.screenname];
@@ -120,6 +128,12 @@
 
 - (void) onNewButton {
     
+    ComposeViewController *cvc = [[ComposeViewController alloc] init];
+    
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:cvc];
+    nvc.navigationBar.translucent = NO;
+    [self presentViewController:nvc animated:YES completion:nil];
+
 }
 
 @end

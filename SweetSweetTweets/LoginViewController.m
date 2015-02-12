@@ -45,7 +45,6 @@
             TweetsViewController *tvc = [[TweetsViewController alloc] init];
             
             UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:tvc];
-            nvc.navigationBar.translucent = NO;
             [self presentViewController:nvc animated:YES completion:nil];
             
             //[self presentViewController:[[TweetsViewController alloc] init] animated:YES completion:nil];
