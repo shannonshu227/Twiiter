@@ -8,7 +8,7 @@
             <connections>
                 <outlet property="nameLabel" destination="Edf-dX-xzm" id="efG-DI-mMn"/>
                 <outlet property="screennameLabel" destination="R9H-Os-1QB" id="BzE-yh-Fjl"/>
-                <outlet property="textCount" destination="NOW-q4-Vw0" id="QJJ-z9-Fl9"/>
+                <outlet property="textCountLabel" destination="PUZ-Cf-qGv" id="CXp-DQ-u91"/>
                 <outlet property="tweetTextView" destination="NOW-q4-Vw0" id="bsW-Oo-UDe"/>
                 <outlet property="userProfileImageView" destination="fFo-o6-Dl5" id="73R-lK-7fp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -33,41 +33,61 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="screenname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R9H-Os-1QB">
-                    <rect key="frame" x="74" y="34" width="120" height="18"/>
+                    <rect key="frame" x="74" y="34" width="168" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="NOW-q4-Vw0">
-                    <rect key="frame" x="10" y="85" width="302" height="256"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NOW-q4-Vw0">
+                    <rect key="frame" x="10" y="85" width="302" height="259"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="twitter"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="count" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PUZ-Cf-qGv">
+                    <rect key="frame" x="270" y="71" width="42" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="Edf-dX-xzm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14" id="05V-RZ-6FS"/>
                 <constraint firstItem="fFo-o6-Dl5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14" id="2FT-eG-Ldl"/>
+                <constraint firstItem="PUZ-Cf-qGv" firstAttribute="top" secondItem="NOW-q4-Vw0" secondAttribute="bottom" constant="-273" id="B5T-QN-PCe"/>
+                <constraint firstItem="PUZ-Cf-qGv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="270" id="H22-Vi-OBK"/>
                 <constraint firstItem="NOW-q4-Vw0" firstAttribute="top" secondItem="fFo-o6-Dl5" secondAttribute="bottom" constant="23" id="HVw-8Q-mTK"/>
                 <constraint firstItem="NOW-q4-Vw0" firstAttribute="top" secondItem="fFo-o6-Dl5" secondAttribute="bottom" constant="23" id="LFX-Xm-u2B"/>
                 <constraint firstItem="Edf-dX-xzm" firstAttribute="leading" secondItem="fFo-o6-Dl5" secondAttribute="trailing" constant="16" id="MvH-7T-O3u"/>
+                <constraint firstAttribute="bottom" secondItem="PUZ-Cf-qGv" secondAttribute="bottom" constant="479" id="NQZ-dO-Jfz"/>
                 <constraint firstAttribute="trailing" secondItem="NOW-q4-Vw0" secondAttribute="trailing" constant="8" id="Poc-tl-uMq"/>
                 <constraint firstItem="NOW-q4-Vw0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="QMP-vG-J7Y"/>
-                <constraint firstAttribute="trailing" secondItem="R9H-Os-1QB" secondAttribute="trailing" constant="126" id="WhJ-oD-5C2"/>
+                <constraint firstAttribute="trailing" secondItem="R9H-Os-1QB" secondAttribute="trailing" constant="78" id="WhJ-oD-5C2"/>
                 <constraint firstAttribute="trailing" secondItem="Edf-dX-xzm" secondAttribute="trailing" constant="140" id="cH9-aT-cEx"/>
                 <constraint firstItem="R9H-Os-1QB" firstAttribute="leading" secondItem="fFo-o6-Dl5" secondAttribute="trailing" constant="16" id="cKi-9k-C4A"/>
-                <constraint firstAttribute="bottom" secondItem="NOW-q4-Vw0" secondAttribute="bottom" constant="227" id="gc3-sm-urw"/>
+                <constraint firstAttribute="trailing" secondItem="PUZ-Cf-qGv" secondAttribute="trailing" constant="8" id="rVn-9l-GWW"/>
+                <constraint firstItem="PUZ-Cf-qGv" firstAttribute="top" secondItem="NOW-q4-Vw0" secondAttribute="bottom" constant="-273" id="sxZ-aI-seV"/>
                 <constraint firstItem="fFo-o6-Dl5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="ulg-am-Zk2"/>
                 <constraint firstItem="R9H-Os-1QB" firstAttribute="top" secondItem="Edf-dX-xzm" secondAttribute="bottom" constant="2" id="zSn-6M-jIb"/>
             </constraints>
-            <point key="canvasLocation" x="533" y="171"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="rSS-yw-LNf" appends="YES" id="ZXq-6B-7rG"/>
+            </connections>
+            <point key="canvasLocation" x="333" y="187"/>
         </view>
         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dDv-LN-ih2">
             <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
         </imageView>
+        <tapGestureRecognizer id="rSS-yw-LNf">
+            <connections>
+                <action selector="onTap:" destination="-1" id="HD4-K3-tPE"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

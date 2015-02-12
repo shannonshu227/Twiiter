@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screennameLabel;
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
-@property (weak, nonatomic) IBOutlet UITextView *textCount;
+@property (weak, nonatomic) IBOutlet UILabel *textCountLabel;
 
 
 @end
@@ -25,9 +25,10 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    self.tweetTextView.text = @"Compose your tweet here...";
-    self.tweetTextView.textColor = [UIColor grayColor];
-    self.textCount.textColor = [UIColor grayColor];
+//    self.tweetTextView.text = @"Compose your tweet here...";
+//    self.tweetTextView.textColor = [UIColor grayColor];
+//    self.textCountLabel.textColor = [UIColor grayColor];
+    self.tweetTextView.text = @"";
 }
 - (void)viewDidLoad {
     
@@ -76,15 +77,28 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    textView.text = @"";
+   // textView.text = @"";
 
 }
 
 - (void) textViewDidChange:(UITextView *) textView {
     textView.textColor = [UIColor blackColor];
     NSUInteger num =[self.tweetTextView.text length];
-    NSLog(@"num: %lu", (unsigned long)num);
-    self.textCount.text = [NSString stringWithFormat:@"%lul", (unsigned long)num];
+    NSString *numtext;
+    if (num <= 140) {
+        num = 140 - num;
+        numtext = [NSString stringWithFormat:@"%lu", (unsigned long)num];
+    } else {
+        num = num - 140;
+        NSMutableString *tmp = [[NSMutableString alloc] initWithString:@"-"];
+        [tmp appendString:[NSString stringWithFormat:@"%lu", (unsigned long)num]];
+        numtext = tmp;
+    }
+    self.textCountLabel.text = numtext;
+}
+
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES];
 }
 
 /*
