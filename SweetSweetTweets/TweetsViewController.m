@@ -13,6 +13,8 @@
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "ComposeViewController.h"
+#import "DetailTweetViewController.h"
+#import "SVPullToRefresh.h"
 
 @interface TweetsViewController () <UITableViewDataSource,UITableViewDelegate>
 //- (IBAction)onLogout:(id)sender;
@@ -25,14 +27,25 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    
     [self.tableView reloadData];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self.tableView triggerPullToRefresh];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [self.tableView addPullToRefreshWithActionHandler:^{
+        [self insertRowAtTop];
+    }];
+//    self.automaticallyAdjustsScrollViewInsets = NO;
 
+    
     self.title = @"Home";
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onSignOutButton)];
@@ -41,24 +54,17 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.rowHeight = 128; //UITableViewAutomaticDimension;
     
     [[TwitterClient sharedInstance] homeTimelineWithParams:nil completion:^(NSArray *tweets, NSError *error) {
         self.tweets = tweets;
         [self.tableView reloadData];
-
-//        for (Tweet *tweet in tweets) {
-//            NSLog(@"text:%@", tweet.text);
-//            NSLog(@"user:%@", tweet.user.name);
-//            NSLog(@"user screen name: %@", tweet.user.screenname);
-//            NSLog(@"img url:%@", tweet.user.profileImageUrl);
-//            NSLog(@"created at:%@", tweet.createdAt);
-//            NSLog(@"retweeted:%d", tweet.retweeted);
-//        }
+        
     }];
     
-      [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"TweetCellID"];
-
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"TweetCellID"];
+    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -66,11 +72,15 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCellID"];
     Tweet *tweet = self.tweets[indexPath.row];
-
+    
+    NSLog(@"section: %ld", (long)indexPath.section);
+    
     [cell.userProfileImageView setImageWithURL: [NSURL URLWithString:tweet.user.profileImageUrl]];
-
+    
     cell.nameLabel.text = tweet.user.name;
     NSMutableString *screenname =[[NSMutableString alloc] initWithString:@"@"];
     [screenname appendString:tweet.user.screenname];
@@ -87,11 +97,11 @@
     } else if(timeInterval > 60) {
         min = timeInterval / 60;
         timeElapsed = [NSString stringWithFormat:@"%dm", min];
-
+        
     } else {
         sec = timeInterval;
         timeElapsed = [NSString stringWithFormat:@"%ds", sec];
-
+        
     }
     cell.createdAtLabel.text = timeElapsed;
     cell.retweetFromLabel.text = @"";
@@ -101,25 +111,32 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    DetailTweetViewController *dvc = [[DetailTweetViewController alloc] init];
+    dvc.tweet = self.tweets[indexPath.row];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:dvc];
+    nvc.navigationBar.translucent = NO;
+    [self presentViewController:nvc animated:YES completion:nil];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-//- (IBAction)onLogout:(id)sender {
-//    [User logout];
-//}
-//
 
 - (void) onSignOutButton {
     [User logout];
@@ -133,7 +150,31 @@
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:cvc];
     nvc.navigationBar.translucent = NO;
     [self presentViewController:nvc animated:YES completion:nil];
+    
+}
 
+- (void)insertRowAtTop {
+    
+    int64_t delayInSeconds = 2.0;
+    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [[TwitterClient sharedInstance] homeTimelineWithParams:nil completion:^(NSArray *tweets, NSError *error) {
+            
+            self.tweets = tweets;
+            [self.tableView reloadData];
+            //set the scroll index so that the new data will show on top of screen
+            NSLog(@"twee count: %lu", (unsigned long)self.tweets.count);
+//            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//            [[self tableView] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+//
+        }];
+        
+        
+        
+        [self.tableView.pullToRefreshView stopAnimating];
+    });
+    
 }
 
 @end

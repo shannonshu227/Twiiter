@@ -66,7 +66,7 @@
 
 - (void) onTweetButton {
     NSString * tweetContent = self.tweetTextView.text;
-    [[TwitterClient sharedInstance] createNewTweet:tweetContent completion:^(NSDictionary *tweet, NSError *error) {
+    [[TwitterClient sharedInstance] createNewTweet:tweetContent completion:^(Tweet *tweet, NSError *error) {
         NSLog(@"newtweet: %@", tweetContent);
     }];
     

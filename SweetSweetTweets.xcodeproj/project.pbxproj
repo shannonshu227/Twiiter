@@ -13,6 +13,8 @@
 		17418C171A8B2D6400E9E820 /* TweetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17418C151A8B2D6400E9E820 /* TweetsViewController.xib */; };
 		1754F2811A8C7FCF0081C467 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1754F27F1A8C7FCF0081C467 /* ComposeViewController.m */; };
 		1754F2821A8C7FCF0081C467 /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1754F2801A8C7FCF0081C467 /* ComposeViewController.xib */; };
+		1754F2861A8D337A0081C467 /* DetailTweetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1754F2841A8D337A0081C467 /* DetailTweetViewController.m */; };
+		1754F2871A8D337A0081C467 /* DetailTweetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1754F2851A8D337A0081C467 /* DetailTweetViewController.xib */; };
 		179ABA0B1A8BE816009B2579 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 179ABA091A8BE816009B2579 /* TweetCell.m */; };
 		179ABA0C1A8BE816009B2579 /* TweetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 179ABA0A1A8BE816009B2579 /* TweetCell.xib */; };
 		179ABA191A8BEB3F009B2579 /* favorite_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 179ABA0F1A8BEB3F009B2579 /* favorite_hover.png */; };
@@ -57,6 +59,9 @@
 		1754F27E1A8C7FCF0081C467 /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		1754F27F1A8C7FCF0081C467 /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		1754F2801A8C7FCF0081C467 /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
+		1754F2831A8D337A0081C467 /* DetailTweetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTweetViewController.h; sourceTree = "<group>"; };
+		1754F2841A8D337A0081C467 /* DetailTweetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTweetViewController.m; sourceTree = "<group>"; };
+		1754F2851A8D337A0081C467 /* DetailTweetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailTweetViewController.xib; sourceTree = "<group>"; };
 		179ABA081A8BE816009B2579 /* TweetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetCell.h; sourceTree = "<group>"; };
 		179ABA091A8BE816009B2579 /* TweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetCell.m; sourceTree = "<group>"; };
 		179ABA0A1A8BE816009B2579 /* TweetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetCell.xib; sourceTree = "<group>"; };
@@ -197,6 +202,9 @@
 				1754F27E1A8C7FCF0081C467 /* ComposeViewController.h */,
 				1754F27F1A8C7FCF0081C467 /* ComposeViewController.m */,
 				1754F2801A8C7FCF0081C467 /* ComposeViewController.xib */,
+				1754F2831A8D337A0081C467 /* DetailTweetViewController.h */,
+				1754F2841A8D337A0081C467 /* DetailTweetViewController.m */,
+				1754F2851A8D337A0081C467 /* DetailTweetViewController.xib */,
 			);
 			path = SweetSweetTweets;
 			sourceTree = "<group>";
@@ -326,6 +334,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1754F2871A8D337A0081C467 /* DetailTweetViewController.xib in Resources */,
 				179ABA1A1A8BEB3F009B2579 /* favorite_on.png in Resources */,
 				179ABA1F1A8BEB3F009B2579 /* retweet_on.png in Resources */,
 				179ABA201A8BEB3F009B2579 /* retweet.png in Resources */,
@@ -395,6 +404,7 @@
 				17C3D0C81A849D5E004FB0E4 /* TwitterClient.m in Sources */,
 				17C3D0A11A8499B7004FB0E4 /* AppDelegate.m in Sources */,
 				171CA13D1A872CDA00A45776 /* User.m in Sources */,
+				1754F2861A8D337A0081C467 /* DetailTweetViewController.m in Sources */,
 				1754F2811A8C7FCF0081C467 /* ComposeViewController.m in Sources */,
 				171CA13A1A872CC200A45776 /* Tweet.m in Sources */,
 				17C3D09E1A8499B7004FB0E4 /* main.m in Sources */,
