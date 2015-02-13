@@ -47,7 +47,6 @@
             UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:tvc];
             [self presentViewController:nvc animated:YES completion:nil];
             
-            //[self presentViewController:[[TweetsViewController alloc] init] animated:YES completion:nil];
         } else {
             
         }

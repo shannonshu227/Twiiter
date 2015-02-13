@@ -14,37 +14,29 @@
 #import "UIImageView+AFNetworking.h"
 #import "ComposeViewController.h"
 #import "DetailTweetViewController.h"
-#import "SVPullToRefresh.h"
 
 @interface TweetsViewController () <UITableViewDataSource,UITableViewDelegate>
 //- (IBAction)onLogout:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *tweets;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation TweetsViewController
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
+    [super viewWillAppear:animated];
     
     [self.tableView reloadData];
     
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self.tableView triggerPullToRefresh];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [self.tableView addPullToRefreshWithActionHandler:^{
-        [self insertRowAtTop];
-    }];
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-
     
     self.title = @"Home";
     
@@ -64,6 +56,12 @@
     
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"TweetCellID"];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh)
+             forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
+     [self.tableView addSubview:refreshControl];
     
 }
 
@@ -153,28 +151,15 @@
     
 }
 
-- (void)insertRowAtTop {
-    
-    int64_t delayInSeconds = 2.0;
-    
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [[TwitterClient sharedInstance] homeTimelineWithParams:nil completion:^(NSArray *tweets, NSError *error) {
-            
-            self.tweets = tweets;
-            [self.tableView reloadData];
-            //set the scroll index so that the new data will show on top of screen
-            NSLog(@"twee count: %lu", (unsigned long)self.tweets.count);
-//            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//            [[self tableView] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-//
-        }];
+-(void)refresh {
+    // do something here to refresh.
+    [[TwitterClient sharedInstance] homeTimelineWithParams:nil completion:^(NSArray *tweets, NSError *error) {
         
+        self.tweets = tweets;
+        [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
         
-        
-        [self.tableView.pullToRefreshView stopAnimating];
-    });
-    
+    }];
 }
 
 @end

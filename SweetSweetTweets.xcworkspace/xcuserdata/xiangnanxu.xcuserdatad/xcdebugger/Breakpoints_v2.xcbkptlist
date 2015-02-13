@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SweetSweetTweets/TweetsViewController.m"
-            timestampString = "445474302.788403"
+            timestampString = "445507089.71929"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "-insertRowAtTop"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "-refresh"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

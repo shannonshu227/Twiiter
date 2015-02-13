@@ -11,50 +11,80 @@
 #import "UIImageView+AFNetworking.h"
 #import "Tweet.h"
 #import "TwitterClient.h"
+#import "DetailTweetCell.h"
+#import "InfoCell.h"
+#import "ButtonCell.h"
 
 
-@interface DetailTweetViewController ()
-@property (weak, nonatomic) IBOutlet UIImageView *userProfileImageView;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *screennameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *tweetTextLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *createdAtLabel;
-@property (weak, nonatomic) IBOutlet UILabel *retweetCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *retweetTextLabel;
-@property (weak, nonatomic) IBOutlet UILabel *favoriteCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *favoriteTextLabel;
-- (IBAction)onReplyTweetButton:(UIButton *)sender;
-- (IBAction)onFavoriteButton:(UIButton *)sender;
-
-- (IBAction)onRetweetButton:(UIButton *)sender;
-
+@interface DetailTweetViewController () <UITableViewDataSource, UITableViewDelegate>
 @end
 
 @implementation DetailTweetViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Home" style:UIBarButtonItemStylePlain target:self action:@selector(onHomeButton)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reply" style:UIBarButtonItemStylePlain target:self action:@selector(onReplyButton)];
 
-
-    [self.userProfileImageView setImageWithURL:[NSURL URLWithString:self.tweet.user.profileImageUrl]];
-    self.nameLabel.text = self.tweet.user.name;
-    NSMutableString *screenname = [[NSMutableString alloc] initWithString:@"@"];
-    [screenname appendString:self.tweet.user.screenname];
-    self.screennameLabel.text = screenname;
-    NSLog(@"SCREEN:%@", screenname);
-    self.userProfileImageView.layer.cornerRadius = 5;
-    self.tweetTextLabel.text = self.tweet.text;
-    NSLog(@"text:%@", self.tweet.text);
-    NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"EEE MMM d HH:mm:ss"];
-    self.createdAtLabel.text = [formatter stringFromDate:self.tweet.createdAt];
+//
+//    [self.userProfileImageView setImageWithURL:[NSURL URLWithString:self.tweet.user.profileImageUrl]];
+//    self.nameLabel.text = self.tweet.user.name;
+//    NSMutableString *screenname = [[NSMutableString alloc] initWithString:@"@"];
+//    [screenname appendString:self.tweet.user.screenname];
+//    self.screennameLabel.text = screenname;
+//    NSLog(@"SCREEN:%@", screenname);
+//    self.userProfileImageView.layer.cornerRadius = 5;
+//    self.tweetTextLabel.text = self.tweet.text;
+//    NSLog(@"text:%@", self.tweet.text);
+//    NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"EEE MMM d HH:mm:ss"];
+//    self.createdAtLabel.text = [formatter stringFromDate:self.tweet.createdAt];
+    
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"DetailTweetCell" bundle:nil] forCellReuseIdentifier:@"DetailTweetCellID"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"InfoCell" bundle:nil] forCellReuseIdentifier:@"InfoCellID"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ButtonCell" bundle:nil] forCellReuseIdentifier:@"ButtonCellID"];
 
 }
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        DetailTweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailTweetCellID"];
+        cell.nameLabel.text = self.tweet.user.name;
+        cell.screennameLabel.text = [NSString stringWithFormat:@"@%@", self.tweet.user.screenname];
+        [cell.userProfileImageView setImageWithURL:[NSURL URLWithString:self.tweet.user.profileImageUrl]];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"EEE MMM d HH:mm:ss"];
+        cell.createdAtLabel.text = [formatter stringFromDate:self.tweet.createdAt];
+        cell.tweetTextLabel.text = self.tweet.text;
+        
+        return cell;
+
+    } else if (indexPath.row == 1) {
+        InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCellID"];
+        return cell;
+
+    } else {
+        ButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ButtonCellID"];
+        return cell;
+
+    }
+    
+
+    
+}
+
+
+
 
 - (void) onHomeButton {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -80,25 +110,4 @@
 }
 */
 
-- (IBAction)onReplyTweetButton:(UIButton *)sender {
-    NSLog(@"reply click!");
-
-    [[TwitterClient sharedInstance] replyStatus:self.tweet.user.id_str reply:@"hello" completion:^(Tweet *tweet, NSError *error) {
-        
-    }];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)onFavoriteButton:(UIButton *)sender {
-}
-
-- (IBAction)onRetweetButton:(UIButton *)sender {
-    NSLog(@"retweet click!");
-    [[TwitterClient sharedInstance] retweetStatus:self.tweet.user.id_str completion:^(Tweet *tweet, NSError *error) {
-        
-    }];
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-    
-}
 @end

@@ -11,5 +11,6 @@
 
 @interface DetailTweetViewController : UIViewController
 @property (strong, nonatomic) Tweet *tweet;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

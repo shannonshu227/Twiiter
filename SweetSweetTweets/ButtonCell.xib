@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ButtonCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o1L-a4-JE2">
+                        <rect key="frame" x="24" y="5" width="71" height="29.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="71" id="Fyr-9k-zpn"/>
+                            <constraint firstAttribute="height" constant="29.5" id="eKG-F5-xf8"/>
+                        </constraints>
+                        <state key="normal" image="reply.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="onReplyTweetButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9Ln-Sq-5gE"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fke-aL-fEX">
+                        <rect key="frame" x="221" y="5" width="63" height="30.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="63" id="WQJ-Dp-euS"/>
+                            <constraint firstAttribute="height" constant="30.5" id="jKM-b1-5Hy"/>
+                        </constraints>
+                        <state key="normal" image="favorite.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="onFavoriteButtton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="M2O-KY-2rA"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="poW-gR-9Ge">
+                        <rect key="frame" x="124" y="5" width="72" height="31.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="72" id="A0i-xx-yoL"/>
+                            <constraint firstAttribute="height" constant="31.5" id="qpo-D4-B6c"/>
+                        </constraints>
+                        <state key="normal" image="retweet.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="onRetweetButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5F4-aQ-aeL"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="o1L-a4-JE2" secondAttribute="bottom" constant="9.5" id="1Y1-k2-sTY"/>
+                    <constraint firstItem="poW-gR-9Ge" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="46O-0e-QtP"/>
+                    <constraint firstItem="o1L-a4-JE2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="5HP-Je-Tl9"/>
+                    <constraint firstAttribute="trailing" secondItem="Fke-aL-fEX" secondAttribute="trailing" constant="36" id="7sT-iT-GGQ"/>
+                    <constraint firstItem="o1L-a4-JE2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Asm-k4-Yxf"/>
+                    <constraint firstItem="poW-gR-9Ge" firstAttribute="leading" secondItem="o1L-a4-JE2" secondAttribute="trailing" constant="29" id="S0r-BL-nGT"/>
+                    <constraint firstAttribute="bottom" secondItem="Fke-aL-fEX" secondAttribute="bottom" constant="8.5" id="YFN-LG-Ds6"/>
+                    <constraint firstAttribute="bottom" secondItem="poW-gR-9Ge" secondAttribute="bottom" constant="7.5" id="frx-C3-Fmt"/>
+                    <constraint firstItem="Fke-aL-fEX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="hhy-7y-VMl"/>
+                    <constraint firstItem="Fke-aL-fEX" firstAttribute="leading" secondItem="poW-gR-9Ge" secondAttribute="trailing" constant="25" id="hsD-dp-PSf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="291" y="281"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="favorite.png" width="16" height="16"/>
+        <image name="reply.png" width="16" height="16"/>
+        <image name="retweet.png" width="19" height="16"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
