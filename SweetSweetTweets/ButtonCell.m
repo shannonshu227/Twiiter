@@ -7,6 +7,11 @@
 //
 
 #import "ButtonCell.h"
+#import "TwitterClient.h"
+
+
+
+
 
 @implementation ButtonCell
 
@@ -20,12 +25,4 @@
     // Configure the view for the selected state
 }
 
-- (IBAction)onReplyTweetButton:(id)sender {
-}
-
-- (IBAction)onRetweetButton:(id)sender {
-}
-
-- (IBAction)onFavoriteButtton:(id)sender {
-}
 @end

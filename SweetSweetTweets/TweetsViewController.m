@@ -74,9 +74,7 @@
 
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCellID"];
     Tweet *tweet = self.tweets[indexPath.row];
-    
-    NSLog(@"section: %ld", (long)indexPath.section);
-    
+        
     [cell.userProfileImageView setImageWithURL: [NSURL URLWithString:tweet.user.profileImageUrl]];
     
     cell.nameLabel.text = tweet.user.name;
@@ -142,6 +140,12 @@
 
 
 - (void) onNewButton {
+    BOOL reply = 0;
+    [[NSUserDefaults standardUserDefaults] setBool:reply forKey:@"mode"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"reference"];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"in_reply_to_status_id"];
+
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     ComposeViewController *cvc = [[ComposeViewController alloc] init];
     

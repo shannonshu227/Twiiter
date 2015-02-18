@@ -14,12 +14,20 @@
 #import "DetailTweetCell.h"
 #import "InfoCell.h"
 #import "ButtonCell.h"
+#import "ComposeViewController.h"
 
 
 @interface DetailTweetViewController () <UITableViewDataSource, UITableViewDelegate>
 @end
 
 @implementation DetailTweetViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.tableView reloadData];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,26 +38,12 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Home" style:UIBarButtonItemStylePlain target:self action:@selector(onHomeButton)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reply" style:UIBarButtonItemStylePlain target:self action:@selector(onReplyButton)];
-
-//
-//    [self.userProfileImageView setImageWithURL:[NSURL URLWithString:self.tweet.user.profileImageUrl]];
-//    self.nameLabel.text = self.tweet.user.name;
-//    NSMutableString *screenname = [[NSMutableString alloc] initWithString:@"@"];
-//    [screenname appendString:self.tweet.user.screenname];
-//    self.screennameLabel.text = screenname;
-//    NSLog(@"SCREEN:%@", screenname);
-//    self.userProfileImageView.layer.cornerRadius = 5;
-//    self.tweetTextLabel.text = self.tweet.text;
-//    NSLog(@"text:%@", self.tweet.text);
-//    NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"EEE MMM d HH:mm:ss"];
-//    self.createdAtLabel.text = [formatter stringFromDate:self.tweet.createdAt];
     
     
     [self.tableView registerNib:[UINib nibWithNibName:@"DetailTweetCell" bundle:nil] forCellReuseIdentifier:@"DetailTweetCellID"];
     [self.tableView registerNib:[UINib nibWithNibName:@"InfoCell" bundle:nil] forCellReuseIdentifier:@"InfoCellID"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ButtonCell" bundle:nil] forCellReuseIdentifier:@"ButtonCellID"];
-
+    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -68,18 +62,51 @@
         cell.tweetTextLabel.text = self.tweet.text;
         
         return cell;
-
+        
     } else if (indexPath.row == 1) {
         InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCellID"];
+        cell.favTextLabel.text = @"FAVORITES";
+        
+        cell.favCountLabel.text = [NSString stringWithFormat: @"%ld", self.tweet.favCount];
+        cell.retweetTextLabel.text = @"RETWEETS";
+        cell.retweetCountLabel.text = [NSString stringWithFormat:@"%ld",self.tweet.retweetCount];
+        
         return cell;
-
+        
     } else {
         ButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ButtonCellID"];
-        return cell;
+        
+        [cell.replyButton addTarget:self action:@selector(onReplyTweetClicked:)  forControlEvents:UIControlEventTouchUpInside];
+        [cell.retweetButton addTarget:self action:@selector(onRetweetClicked:)  forControlEvents:UIControlEventTouchUpInside];
+        [cell.starButton addTarget:self action:@selector(onFavoriteClicked:)  forControlEvents:UIControlEventTouchUpInside];
+        
+//        if (self.tweet.favorited) {
+//            UIImage *image = [UIImage imageNamed:@"favorite_on"];
+//            [cell.starButton setImage:image forState:UIControlStateNormal];
+//
+//        } else {
+//            UIImage *image = [UIImage imageNamed:@"favorite_hover"];
+//            [cell.starButton setImage:image forState:UIControlStateNormal];
+//        }
+//        
+        if (self.tweet.retweeted) {
+            NSLog(@"retweeted");
+            UIImage *image = [UIImage imageNamed:@"retweet_on"];
+            [cell.retweetButton setImage:image forState:UIControlStateNormal];
 
+        } else {
+            UIImage *image = [UIImage imageNamed:@"retweet_hover"];
+            [cell.retweetButton setImage:image forState:UIControlStateNormal];
+
+        }
+//
+//        [cell.starButton setSelected:self.tweet.favorited];
+//        [cell.retweetButton setSelected:self.tweet.retweeted];
+        return cell;
+        
     }
     
-
+    
     
 }
 
@@ -101,13 +128,45 @@
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+-(void)onReplyTweetClicked:(UIButton*)sender
+{
+    BOOL reply = 1;
+    [[NSUserDefaults standardUserDefaults] setBool:reply forKey:@"mode"];
+    NSString *referenceTweetUsername = [NSString stringWithFormat:@"@%@ ", self.tweet.user.screenname];
+    [[NSUserDefaults standardUserDefaults] setObject:referenceTweetUsername forKey:@"reference"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.tweet.id_str forKey:@"in_reply_to_status_id"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    ComposeViewController *cvc = [[ComposeViewController alloc] init];
+    
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:cvc];
+    nvc.navigationBar.translucent = NO;
+    [self presentViewController:nvc animated:YES completion:nil];
+    
+
 }
-*/
 
+-(void)onRetweetClicked:(UIButton*)sender
+{
+    [[TwitterClient sharedInstance] retweetStatus:self.tweet.id_str completion:^(Tweet *tweet, NSError *error) {
+        NSLog(@"retweet succeed");
+    }];
+//    UIImage *image = [UIImage imageNamed:@"retweet_on"];
+//    [sender setImage:image forState:UIControlStateNormal];
+     //[sender setSelected:YES];
+}
+-(void)onFavoriteClicked:(UIButton*)sender
+{
+    
+}
 @end

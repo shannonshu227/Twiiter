@@ -29,6 +29,7 @@
 //    self.tweetTextView.textColor = [UIColor grayColor];
 //    self.textCountLabel.textColor = [UIColor grayColor];
     self.tweetTextView.text = @"";
+    self.textCountLabel.text = @"140";
 }
 - (void)viewDidLoad {
     
@@ -65,11 +66,20 @@
 }
 
 - (void) onTweetButton {
-    NSString * tweetContent = self.tweetTextView.text;
-    [[TwitterClient sharedInstance] createNewTweet:tweetContent completion:^(Tweet *tweet, NSError *error) {
-        NSLog(@"newtweet: %@", tweetContent);
-    }];
+    NSString *tweetContent = self.tweetTextView.text;
+//    [[TwitterClient sharedInstance] createNewTweet:tweetContent completion:^(Tweet *tweet, NSError *error) {
+//        NSLog(@"newtweet: %@", tweetContent);
+//    }];
     
+    BOOL mode = [[NSUserDefaults standardUserDefaults] boolForKey:@"mode"];
+    NSString *referenceUser = [[NSUserDefaults standardUserDefaults] objectForKey:@"reference"];
+    NSString *reply_to_id_str = [[NSUserDefaults standardUserDefaults] objectForKey:@"in_reply_to_status_id"];
+    NSMutableString  *text = [[NSMutableString alloc] initWithString:referenceUser];
+    [text appendString:tweetContent];
+    [[TwitterClient sharedInstance] updateStatusWithIdStr:reply_to_id_str content:text mode:mode completion:^(Tweet *tweet, NSError *error) {
+        NSLog(@"mode: %d, tweet: %@", mode, tweetContent);
+
+    }];
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }

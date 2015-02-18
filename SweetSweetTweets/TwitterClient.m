@@ -65,23 +65,13 @@ NSString * const KTwitterBaseUrl = @"https://api.twitter.com";
             NSLog(@"failed to get current user");
             self.loginCompletion(nil,error);
         }];
-//        
-//        [[TwitterClient sharedInstance] GET:@"1.1/statuses/home_timeline.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            //NSLog(@"Tweets:%@", responseObject);
-//            NSArray *tweets = [Tweet tweetsWithArray:responseObject];
-//            
-//            for (Tweet *tweet in tweets) {
-//                NSLog(@"tweet:%@, created: %@", tweet.text, tweet.createdAt);
-//            }
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"error getting tweets");
-//        }];
+        
     }failure:^(NSError *error) {
         NSLog(@"fail to get access token!");
         self.loginCompletion(nil,error);
     }];
     
-
+    
 }
 
 - (void) homeTimelineWithParams:(NSDictionary *)params completion:(void(^)(NSArray *tweets, NSError *error)) completion {
@@ -95,43 +85,36 @@ NSString * const KTwitterBaseUrl = @"https://api.twitter.com";
 }
 
 
-- (void) createNewTweet: (NSString *) newtweet completion:(void(^)(Tweet *tweet, NSError * error)) completion {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:newtweet forKey:@"status"];
-    [self POST:@"1.1/statuses/update.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
-        //NSLog(@"obj:%@", tweet);
-        completion(tweet,nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        completion(nil,error);
-    }];
-
-}
-
-
 - (void) retweetStatus: (NSString *) id_str completion:(void (^)(Tweet *tweet, NSError *error)) completion {
     
     NSString *url = [NSString stringWithFormat:@"1.1/statuses/retweet/%@.json", id_str];
     [self POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
+
         completion(tweet,nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(nil, error);
     }];
 }
 
-- (void) replyStatus: (NSString *) id_str reply:(NSString *)text completion:(void (^)(Tweet *tweet, NSError *error)) completion {
+
+- (void) updateStatusWithIdStr: (NSString *) id_str content:(NSString *)text mode: (BOOL)mode completion:(void (^)(Tweet *tweet, NSError *error)) completion {
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setValue:id_str forKey:@"in_reply_to_status_id"];
-    [params setValue:text forKey:@"status"];
+    [params setObject:text forKey:@"status"];
+
+    if (id_str != nil) { //reply
+        [params setObject:id_str forKey:@"in_reply_to_status_id"];
+    }
     
     [self POST:@"1.1/statuses/update.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
         completion(tweet, nil);
-        NSLog(@"retweet succeed");
+        if (mode == 1) { NSLog(@"reply succeed"); } else { NSLog(@"new tweet succeed");}
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(nil,error);
     }];
+
 }
 
 @end

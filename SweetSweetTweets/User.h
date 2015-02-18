@@ -17,7 +17,7 @@ extern NSString *const UserDidLogoutNotification;
 @property (nonatomic, strong) NSString *screenname;
 @property (nonatomic, strong) NSString *profileImageUrl;
 @property (nonatomic, strong) NSString *tagline;
-@property (nonatomic, strong) NSString *id_str;
+//@property (nonatomic, strong) NSString *id_str;
 
 - (id) initWithDictionary:(NSDictionary *) dictionary;
 

@@ -22,9 +22,6 @@
                         <state key="normal" image="reply.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
-                        <connections>
-                            <action selector="onReplyTweetButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9Ln-Sq-5gE"/>
-                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fke-aL-fEX">
                         <rect key="frame" x="221" y="5" width="63" height="30.5"/>
@@ -35,9 +32,7 @@
                         <state key="normal" image="favorite.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
-                        <connections>
-                            <action selector="onFavoriteButtton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="M2O-KY-2rA"/>
-                        </connections>
+                        <state key="selected" image="favorite_on.png"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="poW-gR-9Ge">
                         <rect key="frame" x="124" y="5" width="72" height="31.5"/>
@@ -48,9 +43,7 @@
                         <state key="normal" image="retweet.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
-                        <connections>
-                            <action selector="onRetweetButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5F4-aQ-aeL"/>
-                        </connections>
+                        <state key="selected" image="retweet_on.png"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -66,13 +59,20 @@
                     <constraint firstItem="Fke-aL-fEX" firstAttribute="leading" secondItem="poW-gR-9Ge" secondAttribute="trailing" constant="25" id="hsD-dp-PSf"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="291" y="281"/>
+            <connections>
+                <outlet property="replyButton" destination="o1L-a4-JE2" id="k7w-la-CZw"/>
+                <outlet property="retweetButton" destination="poW-gR-9Ge" id="lJS-kh-FJl"/>
+                <outlet property="starButton" destination="Fke-aL-fEX" id="qXP-he-ZdC"/>
+            </connections>
+            <point key="canvasLocation" x="233" y="252"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="favorite.png" width="16" height="16"/>
+        <image name="favorite_on.png" width="16" height="16"/>
         <image name="reply.png" width="16" height="16"/>
         <image name="retweet.png" width="19" height="16"/>
+        <image name="retweet_on.png" width="19" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

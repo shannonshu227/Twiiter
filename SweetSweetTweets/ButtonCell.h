@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface ButtonCell : UITableViewCell
-- (IBAction)onReplyTweetButton:(id)sender;
-- (IBAction)onRetweetButton:(id)sender;
-- (IBAction)onFavoriteButtton:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIButton *replyButton;
+@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
+@property (weak, nonatomic) IBOutlet UIButton *starButton;
+
 
 @end
